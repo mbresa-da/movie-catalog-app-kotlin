@@ -6,9 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.findNavController
 import com.mbresa.moviecatalogapp.IMAGE_BASE_URL
+import com.mbresa.moviecatalogapp.R
 import com.mbresa.moviecatalogapp.databinding.FragmentHomeBinding
 import com.mbresa.moviecatalogapp.databinding.HomeMovieItemBinding
+import com.mbresa.moviecatalogapp.domain.models.MovieResults
 import com.squareup.picasso.Picasso
 
 class HomeFragment : Fragment() {
@@ -30,67 +33,48 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        observeViewModel()
+        viewModel.getNowPlaying(viewModel.nowPlayingPage)
+        viewModel.getPopular(viewModel.popularPage)
+        viewModel.getTopRated(viewModel.topRatedPage)
+        viewModel.getUpcoming(viewModel.upcomingPage)
 
-        viewModel.getNowPlaying(viewModel.currentPage)
-
-        setupNowPlaying()
-        setupPopular()
-        setupTopRated()
-        setupUpcoming()
 
     }
 
     private fun observeViewModel() {
-//        viewModel.characterLiveData.observe(viewLifecycleOwner) {
-//            adapter.characters = it
-//            binding.loader.visibility = View.GONE
-//            binding.loadMoreloader.visibility = View.GONE
-//        }
-    }
-
-    private fun setupNowPlaying(){
         viewModel.nowPlayingMovieList.observe(viewLifecycleOwner){ movie ->
-            movie.forEach { m ->
-                val customViewBinding = HomeMovieItemBinding.inflate(layoutInflater, binding.root, false)
-                Picasso.get().load(IMAGE_BASE_URL + m.posterPath).into(customViewBinding.showMovieImage)
-                customViewBinding.movieNameTitle.text = m.title
-                binding.nowPlayingHolder.addView(customViewBinding.root)
-            }
+            movie.forEach { m -> makePoster(m, 1) }
+        }
+        viewModel.popularMovieList.observe(viewLifecycleOwner){ movie ->
+            movie.forEach { m -> makePoster(m,2) }
+        }
+        viewModel.topRatedMovieList.observe(viewLifecycleOwner){ movie ->
+            movie.forEach { m -> makePoster(m,3) }
+        }
+        viewModel.upcomingMovieList.observe(viewLifecycleOwner){ movie ->
+            movie.forEach { m -> makePoster(m,4) }
         }
     }
 
-    private fun setupPopular(){
-        viewModel.nowPlayingMovieList.observe(viewLifecycleOwner){ movie ->
-            movie.forEach { m ->
-                val customViewBinding = HomeMovieItemBinding.inflate(layoutInflater, binding.root, false)
-                Picasso.get().load(IMAGE_BASE_URL + m.posterPath).into(customViewBinding.showMovieImage)
-                customViewBinding.movieNameTitle.text = m.title
-                binding.popularHolder.addView(customViewBinding.root)
-            }
+    private fun makePoster(m: MovieResults, type: Int){
+        val cvb = HomeMovieItemBinding.inflate(layoutInflater, binding.root, false)
+        Picasso.get().load(IMAGE_BASE_URL + m.posterPath).into(cvb.showMovieImage)
+        cvb.movieNameTitle.text = m.title
+        cvb.showRating.text = m.voteAverage.toString()
+
+        cvb.showMovieImage.setOnClickListener{
+            it.findNavController().navigate(R.id.action_homeFragment_to_movieFragment)
+        }
+
+        when(type){
+            1 -> binding.nowPlayingHolder.addView(cvb.root)
+            2 -> binding.popularHolder.addView(cvb.root)
+            3 -> binding.topRatedHolder.addView(cvb.root)
+            4 -> binding.upcomingHolder.addView(cvb.root)
         }
     }
 
-    private fun setupTopRated(){
-        viewModel.nowPlayingMovieList.observe(viewLifecycleOwner){ movie ->
-            movie.forEach { m ->
-                val customViewBinding = HomeMovieItemBinding.inflate(layoutInflater, binding.root, false)
-                Picasso.get().load(IMAGE_BASE_URL + m.posterPath).into(customViewBinding.showMovieImage)
-                customViewBinding.movieNameTitle.text = m.title
-                binding.topRatedHolder.addView(customViewBinding.root)
-            }
-        }
-    }
-
-    private fun setupUpcoming(){
-        viewModel.nowPlayingMovieList.observe(viewLifecycleOwner){ movie ->
-            movie.forEach { m ->
-                val customViewBinding = HomeMovieItemBinding.inflate(layoutInflater, binding.root, false)
-                Picasso.get().load(IMAGE_BASE_URL + m.posterPath).into(customViewBinding.showMovieImage)
-                customViewBinding.movieNameTitle.text = m.title
-                binding.upcomingHolder.addView(customViewBinding.root)
-            }
-        }
-    }
 
 
 }

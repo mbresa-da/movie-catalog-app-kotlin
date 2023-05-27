@@ -10,5 +10,13 @@
         android:name="com.mbresa.moviecatalogapp.ui.home.HomeFragment"
         android:label="HomeFragment"
         tools:layout="@layout/fragment_home"
-        />
+        >
+        <action
+            android:id="@+id/action_homeFragment_to_movieFragment"
+            app:destination="@id/movieFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/movieFragment"
+        android:name="com.mbresa.moviecatalogapp.ui.movie.MovieFragment"
+        android:label="MovieFragment" />
 </navigation>
