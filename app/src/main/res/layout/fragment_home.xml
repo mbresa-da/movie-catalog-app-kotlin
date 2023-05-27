@@ -30,7 +30,7 @@
             android:layout_margin="12dp"
             android:text="Hello Kotlin/Andorid user "
             android:textSize="15sp"
-            app:drawableRigtCompat="@drawable/baseline_waving_hand_24"
+            android:drawableRight="@drawable/baseline_waving_hand_24"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textWelcome" />
 
