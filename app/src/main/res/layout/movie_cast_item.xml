@@ -6,7 +6,7 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardMovieItem"
-        android:layout_width="130dp"
+        android:layout_width="120dp"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
         android:outlineProvider="none"
@@ -19,25 +19,17 @@
             android:layout_height="match_parent">
 
             <ImageView
-                android:id="@+id/showMovieImage"
-                android:layout_width="130dp"
-                android:layout_height="175dp"
-                android:contentDescription="Movie Poster"
+                android:id="@+id/castImage"
+                android:layout_width="120dp"
+                android:layout_height="160dp"
+                android:contentDescription="Cast Photo"
                 android:scaleType="fitCenter"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
 
             <TextView
-                android:id="@+id/showRating"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:drawableLeft="@drawable/baseline_star_rate_24"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/showMovieImage" />
-
-            <TextView
-                android:id="@+id/movieNameTitle"
+                android:id="@+id/castName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
@@ -45,7 +37,17 @@
                 android:textSize="14sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/showRating" />
+                app:layout_constraintTop_toBottomOf="@+id/castImage" />
+
+            <TextView
+                android:id="@+id/castCharacter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:textColor="@color/black"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/castName" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

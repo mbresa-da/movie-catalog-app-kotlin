@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
@@ -34,47 +35,52 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         observeViewModel()
-        viewModel.getNowPlaying(viewModel.nowPlayingPage)
-        viewModel.getPopular(viewModel.popularPage)
-        viewModel.getTopRated(viewModel.topRatedPage)
-        viewModel.getUpcoming(viewModel.upcomingPage)
-
-
+        if (viewModel.nowPlayingMovieList.value == null) {
+            viewModel.getNowPlaying(viewModel.nowPlayingPage)
+        }
+        if (viewModel.popularMovieList.value == null) {
+            viewModel.getPopular(viewModel.popularPage)
+        }
+        if (viewModel.topRatedMovieList.value == null) {
+            viewModel.getTopRated(viewModel.topRatedPage)
+        }
+        if (viewModel.upcomingMovieList.value == null) {
+            viewModel.getUpcoming(viewModel.upcomingPage)
+        }
     }
 
     private fun observeViewModel() {
-        viewModel.nowPlayingMovieList.observe(viewLifecycleOwner){ movie ->
+        viewModel.nowPlayingMovieList.observe(viewLifecycleOwner) { movie ->
             movie.forEach { m -> makePoster(m, 1) }
         }
-        viewModel.popularMovieList.observe(viewLifecycleOwner){ movie ->
-            movie.forEach { m -> makePoster(m,2) }
+        viewModel.popularMovieList.observe(viewLifecycleOwner) { movie ->
+            movie.forEach { m -> makePoster(m, 2) }
         }
-        viewModel.topRatedMovieList.observe(viewLifecycleOwner){ movie ->
-            movie.forEach { m -> makePoster(m,3) }
+        viewModel.topRatedMovieList.observe(viewLifecycleOwner) { movie ->
+            movie.forEach { m -> makePoster(m, 3) }
         }
-        viewModel.upcomingMovieList.observe(viewLifecycleOwner){ movie ->
-            movie.forEach { m -> makePoster(m,4) }
+        viewModel.upcomingMovieList.observe(viewLifecycleOwner) { movie ->
+            movie.forEach { m -> makePoster(m, 4) }
         }
     }
 
-    private fun makePoster(m: MovieResults, type: Int){
+    private fun makePoster(m: MovieResults, type: Int) {
         val cvb = HomeMovieItemBinding.inflate(layoutInflater, binding.root, false)
         Picasso.get().load(IMAGE_BASE_URL + m.posterPath).into(cvb.showMovieImage)
         cvb.movieNameTitle.text = m.title
         cvb.showRating.text = m.voteAverage.toString()
-
-        cvb.showMovieImage.setOnClickListener{
-            it.findNavController().navigate(R.id.action_homeFragment_to_movieFragment)
+        val movieId = bundleOf(Pair("movie_id", m.id))
+        cvb.showMovieImage.setOnClickListener {
+            it.findNavController().navigate(R.id.action_homeFragment_to_movieFragment, movieId)
         }
 
-        when(type){
+        when (type) {
             1 -> binding.nowPlayingHolder.addView(cvb.root)
             2 -> binding.popularHolder.addView(cvb.root)
             3 -> binding.topRatedHolder.addView(cvb.root)
             4 -> binding.upcomingHolder.addView(cvb.root)
         }
     }
-
 
 
 }
