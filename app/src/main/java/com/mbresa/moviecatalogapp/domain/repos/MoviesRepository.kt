@@ -21,11 +21,11 @@ class MoviesRepository {
         apiService = retrofit.create(ApiService::class.java)
     }
 
-    suspend fun getNowPlaying(page: Int): MovieListsWithDates = apiService.getNowPlaying(page, apikey)
+    suspend fun getNowPlaying(page: Int): MovieListsWithDates = apiService.getMovieListWithDates("now_playing", page, apikey)
 
-    suspend fun getPopular(page: Int): MovieLists = apiService.getPopular(page, apikey)
+    suspend fun getUpcoming(page: Int): MovieListsWithDates = apiService.getMovieListWithDates("upcoming", page, apikey)
 
-    suspend fun getTopRated(page: Int): MovieLists = apiService.getTopRated(page, apikey)
+    suspend fun getPopular(page: Int): MovieLists = apiService.getMovieList("popular", page, apikey)
 
-    suspend fun getUpcoming(page: Int): MovieListsWithDates = apiService.getUpcoming(page, apikey)
+    suspend fun getTopRated(page: Int): MovieLists = apiService.getMovieList("top_rated", page, apikey)
 }

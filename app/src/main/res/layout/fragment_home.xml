@@ -23,17 +23,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/textHello"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="12dp"
-            android:text="Hello Kotlin/Andorid user "
-            android:textSize="15sp"
-            android:drawableRight="@drawable/baseline_waving_hand_24"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textWelcome" />
-
         <EditText
             android:id="@+id/searchBar"
             android:layout_width="0dp"
@@ -46,7 +35,7 @@
             android:textColor="#CECBD7"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textHello" />
+            app:layout_constraintTop_toBottomOf="@id/textWelcome" />
 
         <TextView
             android:id="@+id/textNowPlaying"

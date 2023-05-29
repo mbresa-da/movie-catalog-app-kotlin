@@ -10,17 +10,12 @@ import retrofit2.http.Query
 interface ApiService {
 
 
-    @GET("now_playing")
-    suspend fun getNowPlaying(@Query("page") page: Int, @Query("api_key") apikey : String ): MovieListsWithDates
+    @GET("{list}")
+    suspend fun getMovieListWithDates(@Path("list") path : String, @Query("page") page: Int, @Query("api_key") apikey : String ): MovieListsWithDates
 
-    @GET("popular")
-    suspend fun getPopular(@Query("page") page: Int, @Query("api_key") apikey : String ): MovieLists
+    @GET("{list}")
+    suspend fun getMovieList(@Path("list") path : String, @Query("page") page: Int, @Query("api_key") apikey : String ): MovieLists
 
-    @GET("top_rated")
-    suspend fun getTopRated(@Query("page") page: Int, @Query("api_key") apikey : String ): MovieLists
-
-    @GET("upcoming")
-    suspend fun getUpcoming(@Query("page") page: Int, @Query("api_key") apikey : String ): MovieListsWithDates
     @GET("{movie_id}")
     suspend fun getMovieDetails(@Path("movie_id") movie_id: Int, @Query("api_key") apikey : String, @Query("append_to_response") append : String): MovieDetails
 
