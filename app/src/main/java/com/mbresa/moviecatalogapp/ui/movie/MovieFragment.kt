@@ -43,6 +43,9 @@ class MovieFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         viewModel.getMovieDetail(args.movieId)
         observeViewModel()
+        binding.backToHome.setOnClickListener {
+            it.findNavController().navigate(R.id.action_movieFragment_to_homeFragment)
+        }
     }
 
     private fun observeViewModel() {
