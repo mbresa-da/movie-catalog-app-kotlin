@@ -41,54 +41,46 @@
             android:id="@+id/textNowPlaying"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="12dp"
+            android:layout_margin="8dp"
             android:text="Now in Theaters/Cinemas"
             android:textSize="15sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/searchBar" />
 
-        <HorizontalScrollView
-            android:id="@+id/nowPlayingScrollView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="12dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textNowPlaying">
 
-            <LinearLayout
-                android:id="@+id/nowPlayingHolder"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal" />
-        </HorizontalScrollView>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/nowPlayingRecycler"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_margin="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textNowPlaying" />
+
+
 
         <TextView
             android:id="@+id/textPopular"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="12dp"
+            android:layout_margin="8dp"
             android:text="Popular"
             android:textSize="15sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/nowPlayingScrollView" />
+            app:layout_constraintTop_toBottomOf="@+id/nowPlayingRecycler" />
 
 
-        <HorizontalScrollView
-            android:id="@+id/popularScrollView"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/popularRecycler"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="12dp"
+            android:layout_height="0dp"
+            android:layout_margin="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textPopular">
+            app:layout_constraintTop_toBottomOf="@+id/textPopular" />
 
-            <LinearLayout
-                android:id="@+id/popularHolder"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal" />
-        </HorizontalScrollView>
 
         <TextView
             android:id="@+id/textTopRated"
@@ -99,23 +91,17 @@
             android:textSize="15sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/popularScrollView" />
+            app:layout_constraintTop_toBottomOf="@+id/popularRecycler" />
 
 
-        <HorizontalScrollView
-            android:id="@+id/topRatedScrollView"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/topRatedRecycler"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="12dp"
+            android:layout_height="0dp"
+            android:layout_margin="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textTopRated">
-
-            <LinearLayout
-                android:id="@+id/topRatedHolder"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal" />
-        </HorizontalScrollView>
+            app:layout_constraintTop_toBottomOf="@+id/textTopRated" />
 
         <TextView
             android:id="@+id/textUpcoming"
@@ -126,32 +112,26 @@
             android:textSize="15sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/topRatedScrollView" />
+            app:layout_constraintTop_toBottomOf="@+id/topRatedRecycler" />
 
 
-        <HorizontalScrollView
-            android:id="@+id/upcomingScrollView"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/upcomingRecycler"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="12dp"
+            android:layout_height="0dp"
+            android:layout_margin="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textUpcoming">
-
-            <LinearLayout
-                android:id="@+id/upcomingHolder"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal" />
-        </HorizontalScrollView>
+            app:layout_constraintTop_toBottomOf="@+id/textUpcoming" />
 
         <TextView
-            android:id="@+id/textSuppor"
+            android:id="@+id/textSupport"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
             android:text="Sources used from themoviedb.org"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/upcomingScrollView" />
+            app:layout_constraintTop_toBottomOf="@id/upcomingRecycler" />
 
         <ImageView
             android:id="@+id/tmdbLogo"
@@ -161,7 +141,7 @@
             android:src="@drawable/tmdb_logo"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textSuppor"
+            app:layout_constraintTop_toBottomOf="@id/textSupport"
             android:contentDescription="TMDB logo"/>
 
 

@@ -20,28 +20,16 @@ class HomeViewModel : ViewModel() {
     val topRatedMovieList = MutableLiveData<List<MovieResults>>()
     val upcomingMovieList = MutableLiveData<List<MovieResults>>()
 
-    fun getNowPlaying(page: Int) {
+    fun getMovieList(path:String, page: Int) {
         viewModelScope.launch {
-            nowPlayingMovieList.value = moviesRepository.getNowPlaying(page).results
+            when(path) {
+                "now_playing" -> nowPlayingMovieList.value = moviesRepository.getList(path, page).results
+                "upcoming" -> upcomingMovieList.value = moviesRepository.getList(path, page).results
+                "popular" -> popularMovieList.value = moviesRepository.getList(path, page).results
+                "top_rated" -> topRatedMovieList.value = moviesRepository.getList(path, page).results
+            }
         }
     }
 
-    fun getPopular(page: Int) {
-        viewModelScope.launch {
-            popularMovieList.value = moviesRepository.getPopular(page).results
-        }
-    }
-
-    fun getTopRated(page: Int) {
-        viewModelScope.launch {
-            topRatedMovieList.value = moviesRepository.getTopRated(page).results
-        }
-    }
-
-    fun getUpcoming(page: Int) {
-        viewModelScope.launch {
-            upcomingMovieList.value = moviesRepository.getUpcoming(page).results
-        }
-    }
 
 }

@@ -20,7 +20,8 @@ class MovieDetailRepository {
         apiService = retrofit.create(ApiService::class.java)
     }
 
-    suspend fun getMovieDetails(movie_id: Int): MovieDetails = apiService.getMovieDetails(movie_id, apikey, "credits")
+    suspend fun getMovieDetails(movie_id: Int): MovieDetails =
+        apiService.getMovieDetails(movie_id, apikey, "credits")
 
 
 }

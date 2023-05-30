@@ -3,7 +3,6 @@ package com.mbresa.moviecatalogapp.domain.repos
 import com.mbresa.moviecatalogapp.BuildConfig
 import com.mbresa.moviecatalogapp.data.ApiService
 import com.mbresa.moviecatalogapp.domain.models.MovieLists
-import com.mbresa.moviecatalogapp.domain.models.MovieListsWithDates
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -21,11 +20,7 @@ class MoviesRepository {
         apiService = retrofit.create(ApiService::class.java)
     }
 
-    suspend fun getNowPlaying(page: Int): MovieListsWithDates = apiService.getMovieListWithDates("now_playing", page, apikey)
+    suspend fun getList(path: String, page: Int): MovieLists =
+        apiService.getMovieList(path, page, apikey)
 
-    suspend fun getUpcoming(page: Int): MovieListsWithDates = apiService.getMovieListWithDates("upcoming", page, apikey)
-
-    suspend fun getPopular(page: Int): MovieLists = apiService.getMovieList("popular", page, apikey)
-
-    suspend fun getTopRated(page: Int): MovieLists = apiService.getMovieList("top_rated", page, apikey)
 }
