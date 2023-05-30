@@ -38,5 +38,5 @@ class CastAdapter : RecyclerView.Adapter<CastAdapter.ViewHolder>() {
 
     }
 
-    override fun getItemCount(): Int = casts.size
+    override fun getItemCount(): Int = minOf(casts.size, 10)
 }

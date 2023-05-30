@@ -7,12 +7,12 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.mbresa.moviecatalogapp.IMAGE_BASE_URL
 import com.mbresa.moviecatalogapp.R
-import com.mbresa.moviecatalogapp.databinding.HomeMovieItemBinding
+import com.mbresa.moviecatalogapp.databinding.SearchItemBinding
 import com.mbresa.moviecatalogapp.domain.models.MovieResults
 import com.squareup.picasso.Picasso
 import java.text.DecimalFormat
 
-class MovieAdapter : RecyclerView.Adapter<MovieAdapter.ViewHolder>() {
+class SearchAdapter : RecyclerView.Adapter<SearchAdapter.ViewHolder>() {
 
     var movies: List<MovieResults> = emptyList()
         set(value) {
@@ -20,11 +20,11 @@ class MovieAdapter : RecyclerView.Adapter<MovieAdapter.ViewHolder>() {
             notifyDataSetChanged()
         }
 
-    inner class ViewHolder(val binding: HomeMovieItemBinding) :
+    inner class ViewHolder(val binding: SearchItemBinding) :
         RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding = HomeMovieItemBinding.inflate(
+        val binding = SearchItemBinding.inflate(
             LayoutInflater.from(parent.context),
             parent,
             false
@@ -36,7 +36,7 @@ class MovieAdapter : RecyclerView.Adapter<MovieAdapter.ViewHolder>() {
         val m = movies[position]
         with(holder.binding) {
             Picasso.get().load(IMAGE_BASE_URL + m.posterPath).into(showMovieImage)
-            movieNameTitle.text = m.title
+            movieNameTitle.text = m.originalTitle
             val decimalFormat = DecimalFormat("#.#")
             showRating.text = decimalFormat.format(m.voteAverage).toDouble().toString()
             val movieId = bundleOf(Pair("movie_id", m.id))

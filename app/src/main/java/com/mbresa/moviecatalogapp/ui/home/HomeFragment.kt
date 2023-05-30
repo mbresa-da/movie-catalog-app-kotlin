@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -16,10 +17,12 @@ class HomeFragment : Fragment() {
     private val popularAdapter = MovieAdapter()
     private val topRatedAdapter = MovieAdapter()
     private val upcomingAdapter = MovieAdapter()
+    private val searchAdapter = SearchAdapter()
     private lateinit var nowPlayingLayoutManager: LinearLayoutManager
     private lateinit var popularLayoutManager: LinearLayoutManager
     private lateinit var topRatedLayoutManager: LinearLayoutManager
     private lateinit var upcomingLayoutManager: LinearLayoutManager
+    private lateinit var searchLayoutManager: LinearLayoutManager
 
     private val viewModel: HomeViewModel by viewModels()
 
@@ -72,6 +75,24 @@ class HomeFragment : Fragment() {
             upcomingRecycler.adapter = popularAdapter
             upcomingRecycler.layoutManager = upcomingLayoutManager
 
+            searchLayoutManager =
+                LinearLayoutManager(activity)
+            searchRecycler.adapter = searchAdapter
+            searchRecycler.layoutManager = searchLayoutManager
+
+            searchBar.doOnTextChanged { text, start, before, count ->
+//                viewModel.searchCharacters(text.toString())
+                if(text?.isNotEmpty() == true){
+                    layoutWithList.visibility = View.GONE
+                    searchRecycler.visibility = View.VISIBLE
+                    viewModel.searchList(text.toString())
+                }
+                else{
+                    layoutWithList.visibility = View.VISIBLE
+                    searchRecycler.visibility = View.GONE
+                }
+
+            }
         }
 
 
@@ -81,6 +102,7 @@ class HomeFragment : Fragment() {
 
         viewModel.nowPlayingMovieList.observe(viewLifecycleOwner) {
             nowPlayingAdapter.movies = it
+            binding.loader.visibility = View.GONE
         }
 
         viewModel.popularMovieList.observe(viewLifecycleOwner) {
@@ -93,6 +115,9 @@ class HomeFragment : Fragment() {
 
         viewModel.upcomingMovieList.observe(viewLifecycleOwner) {
             upcomingAdapter.movies = it
+        }
+        viewModel.searchMovieList.observe(viewLifecycleOwner) {
+            searchAdapter.movies = it
         }
 
     }

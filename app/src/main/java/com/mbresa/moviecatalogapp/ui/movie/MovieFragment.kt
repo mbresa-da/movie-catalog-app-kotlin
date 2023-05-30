@@ -57,6 +57,7 @@ class MovieFragment : Fragment() {
         viewModel.movieDetails.observe(viewLifecycleOwner) {
             setupUi(it)
             castAdapter.casts = it.credits.cast
+
         }
     }
 
@@ -77,7 +78,7 @@ class MovieFragment : Fragment() {
             showRating.text = decimalFormat.format(movie.voteAverage).toDouble().toString()
             tagline.text = movie.tagline
             movieOverview.text = movie.overview
-
+            binding.detailLoader.visibility = View.GONE
         }
 
     }

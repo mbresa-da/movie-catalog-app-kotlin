@@ -6,8 +6,9 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardMovieItem"
-        android:layout_width="120dp"
+        android:layout_width="130dp"
         android:layout_height="wrap_content"
+        android:minHeight="200dp"
         android:layout_margin="8dp"
         android:outlineProvider="none"
         app:cardCornerRadius="10dp"
@@ -16,7 +17,8 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:padding="4dp">
 
             <ImageView
                 android:id="@+id/castImage"
