@@ -21,6 +21,13 @@ interface ApiService {
         @Query("query") query: String
     ): MovieLists
 
+    @GET("movie/{movie_id}/similar")
+    suspend fun getSimilar(
+        @Path("movie_id") movie_id: Int,
+        @Query("page") page: Int,
+        @Query("api_key") apikey: String
+    ): MovieLists
+
 
     @GET("{movie_id}")
     suspend fun getMovieDetails(

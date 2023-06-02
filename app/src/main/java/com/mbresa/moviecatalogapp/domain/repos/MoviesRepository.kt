@@ -26,6 +26,9 @@ class MoviesRepository {
     suspend fun getList(path: String, page: Int): MovieLists =
         apiService.getMovieList(path, page, apikey)
 
+    suspend fun getSimilar(movieId: Int, page: Int): MovieLists =
+        apiService.getSimilar(movieId, page, apikey)
+
     suspend fun getSearch(query: String): MovieLists =
         apiService.getSearchList(apikey, query)
 

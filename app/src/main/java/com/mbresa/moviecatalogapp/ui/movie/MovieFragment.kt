@@ -13,6 +13,7 @@ import com.mbresa.moviecatalogapp.IMAGE_BASE_URL
 import com.mbresa.moviecatalogapp.R
 import com.mbresa.moviecatalogapp.databinding.FragmentMovieBinding
 import com.mbresa.moviecatalogapp.domain.models.MovieDetails
+import com.mbresa.moviecatalogapp.ui.home.MovieAdapter
 import com.squareup.picasso.Picasso
 import java.text.DecimalFormat
 
@@ -20,7 +21,9 @@ class MovieFragment : Fragment() {
 
     lateinit var binding: FragmentMovieBinding
     private val castAdapter = CastAdapter()
+    private val similarAdapter = MovieAdapter()
     private lateinit var castLayoutManager: LinearLayoutManager
+    private lateinit var similarLayoutManager: LinearLayoutManager
     private val viewModel: MovieViewModel by viewModels()
     private val args: MovieFragmentArgs by navArgs()
 
@@ -39,6 +42,7 @@ class MovieFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.getMovieDetail(args.movieId)
+        viewModel.getSimilarList(args.movieId, 1)
         observeViewModel()
 
         with(binding) {
@@ -46,6 +50,11 @@ class MovieFragment : Fragment() {
                 LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
             castRecycler.adapter = castAdapter
             castRecycler.layoutManager = castLayoutManager
+
+            similarLayoutManager =
+                LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
+            similarRecycler.adapter = similarAdapter
+            similarRecycler.layoutManager = similarLayoutManager
 
             backToHome.setOnClickListener {
                 it.findNavController().navigate(R.id.action_movieFragment_to_homeFragment)
@@ -57,7 +66,9 @@ class MovieFragment : Fragment() {
         viewModel.movieDetails.observe(viewLifecycleOwner) {
             setupUi(it)
             castAdapter.casts = it.credits.cast
-
+        }
+        viewModel.similarMovieList.observe(viewLifecycleOwner) {
+            similarAdapter.movies = it
         }
     }
 
