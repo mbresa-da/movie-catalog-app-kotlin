@@ -36,12 +36,12 @@ class MovieAdapter : RecyclerView.Adapter<MovieAdapter.ViewHolder>() {
         val m = movies[position]
         with(holder.binding) {
             Picasso.get().load(IMAGE_BASE_URL + m.posterPath).into(showMovieImage)
-            movieNameTitle.text = m.title
+            movieNameTitle.text = m.originalTitle
             val decimalFormat = DecimalFormat("#.#")
             showRating.text = decimalFormat.format(m.voteAverage).toDouble().toString()
             val movieId = bundleOf(Pair("movie_id", m.id))
             showMovieImage.setOnClickListener {
-                it.findNavController().navigate(R.id.action_homeFragment_to_movieFragment, movieId)
+                it.findNavController().navigate(R.id.action_homeToDetail, movieId)
             }
         }
 

@@ -41,7 +41,7 @@ class SearchAdapter : RecyclerView.Adapter<SearchAdapter.ViewHolder>() {
             showRating.text = decimalFormat.format(m.voteAverage).toDouble().toString()
             val movieId = bundleOf(Pair("movie_id", m.id))
             showMovieImage.setOnClickListener {
-                it.findNavController().navigate(R.id.action_homeFragment_to_movieFragment, movieId)
+                it.findNavController().navigate(R.id.action_homeToDetail, movieId)
             }
         }
 
