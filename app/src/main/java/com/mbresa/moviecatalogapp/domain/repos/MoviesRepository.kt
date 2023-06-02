@@ -4,7 +4,6 @@ import com.mbresa.moviecatalogapp.BuildConfig
 import com.mbresa.moviecatalogapp.data.ApiService
 import com.mbresa.moviecatalogapp.domain.models.MovieLists
 import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -17,17 +16,9 @@ class MoviesRepository {
 
     init {
 
-        val logging = HttpLoggingInterceptor()
-        logging.setLevel(HttpLoggingInterceptor.Level.HEADERS)
-
-        val client = OkHttpClient.Builder()
-            .addInterceptor(logging)
-            .build()
-
         val retrofit = Retrofit.Builder()
             .baseUrl("https://api.themoviedb.org/3/")
             .addConverterFactory(GsonConverterFactory.create())
-            .client(client)
             .build()
         apiService = retrofit.create(ApiService::class.java)
     }
